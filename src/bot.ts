@@ -16,13 +16,12 @@ const engine = new SMCEngine();
 bot.start((ctx) => {
     ctx.reply(
         `Welcome to the SMC Signal Bot!\n\n` +
-        `I analyze tickers based on the Lewis Kelly SMC setup rules.\n` +
-        `Simply send me a ticker symbol (e.g., BTCUSDT, ETHUSDT) and I will analyze the 24H timeframe on MEXC.`
+        `Simply send me a ticker symbol (e.g., BTCUSDT, ETHUSDT) and I will analyze the 24H timeframe on Binance.`
     );
 });
 
 bot.help((ctx) => {
-    ctx.reply('To use this bot, type a valid Crypto ticker from MEXC, e.g. BTCUSDT.');
+    ctx.reply('To use this bot, type a valid Crypto ticker from Binance, e.g. BTCUSDT.');
 });
 
 bot.on('text', async (ctx) => {
@@ -34,7 +33,7 @@ bot.on('text', async (ctx) => {
     }
 
     try {
-        ctx.reply(`Fetching 24H data for ${symbol} on MEXC...`);
+        ctx.reply(`Fetching 24H data for ${symbol} on Binance...`);
         
         // Fetch last 200 daily candles (24H timeframe)
         const candles = await engine.fetchOHLCV(symbol, '1d', 200);
@@ -73,10 +72,10 @@ bot.on('text', async (ctx) => {
 
     } catch (error: any) {
         if (error.message && error.message.includes('ExchangeNotAvailable')) {
-           ctx.reply(`Ticker ${symbol} not found on MEXC or exchange unavailable.`);
+           ctx.reply(`Ticker ${symbol} not found on Binance or exchange unavailable.`);
         } else {
             console.error(error);
-            ctx.reply(`An error occurred while analyzing ${symbol}. Please ensure it is a valid MEXC pair like BTCUSDT.`);
+            ctx.reply(`An error occurred while analyzing ${symbol}. Please ensure it is a valid Binance pair like BTCUSDT.`);
         }
     }
 });

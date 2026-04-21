@@ -35,7 +35,7 @@ export class SMCEngine {
     private exchange: any;
 
     constructor() {
-        this.exchange = new ccxt.mexc({ 
+        this.exchange = new ccxt.binance({ 
             enableRateLimit: true,
             timeout: 30000
         });
